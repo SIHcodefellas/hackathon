@@ -2,6 +2,7 @@
 To run this file -> git clone (link)
                  -> cd hackathon
                  -> npm install
+                 ->dowload expo go on phone , remember you need to have install expo cli globally in ur terminal you can follow code with  mosh react native tut. for 15 mins
                  -> expo start
 
 
