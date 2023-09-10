@@ -1,5 +1,6 @@
 ##  Instructions
 To run this file -> git clone (link)
+                 -> cd hackathon
                  -> npm install
                  -> expo start
 
