@@ -1,39 +1,57 @@
-const Stack = createNativeStackNavigator();
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import Dashboard from "./screens/Dashboard.js";
-
+import StartingPage from "./screens/StartingPage";
+import RegistrationStart from "./screens/RegistrationStart";
+import Registration from "./screens/Registration";
+import { firebase } from "./firebase/config";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View, Text, Pressable, TouchableOpacity } from "react-native";
+import { useState, useEffect } from "react";
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
-  const [fontsLoaded, error] = useFonts({
-    // "PublicSans-Bold": require("./assets/fonts/PublicSans-Bold.ttf"),
-    // "Inter-Regular": require("./assets/fonts/Inter-Regular.ttf"),
-    // "Inter-Medium": require("./assets/fonts/Inter-Medium.ttf"),
-    // "Inter-SemiBold": require("./assets/fonts/Inter-SemiBold.ttf"),
-  });
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
 
-  if (!fontsLoaded && !error) {
-    return null;
-  }
+    function onAuthStateChanged(user) {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
 
-  return (
-    <>
-      <NavigationContainer>
-        {hideSplashScreen ? (
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen
-              name="Dashboard"
-              component={Dashboard}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        ) : null}
-      </NavigationContainer>
-    </>
-  );
+    useEffect(() => {
+        const subscriber = firebase
+            .auth()
+            .onAuthStateChanged(onAuthStateChanged);
+        return subscriber;
+    }, []);
+
+    if (initializing) return null;
+
+    if (!user) {
+        return (
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName="Registration">
+                    <Stack.Screen
+                        name="Registration"
+                        component={Registration}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        );
+    }
+
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="StartingPage">
+                <Stack.Screen name="StartingPage" component={StartingPage} />
+                <Stack.Screen
+                    name="RegistrationStart"
+                    component={RegistrationStart}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 };
+
 export default App;
