@@ -1,3 +1,10 @@
+##  Instructions
+To run this file -> git clone (link)
+                 -> npm install
+                 -> expo start
+
+
+
 
 AMATIRS curi social legal aid providers,consultant
 date of next court decision - charge frame,evidence,defence witnesses,argument,judement,punishment point negotiation, punishment award, convicted prisoner.
