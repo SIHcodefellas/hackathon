@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import { Color, Border, FontFamily, FontSize } from "../GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
 // import Registration from "./Registration";
+import { firebase } from "../firebase/config";
 
 const CustomButton = ({ title, onPress }) => (
     <TouchableOpacity style={styles.customButton} onPress={onPress}>
@@ -15,29 +16,29 @@ const RegistrationStart = () => {
     return (
         <View style={styles.container}>
             {/* <View style={styles.notifBar}></View> */}
-            <Text style={styles.logo}>LOGO</Text>
+            {/* <Text style={styles.logo}>LOGO</Text> */}
             <Text style={styles.registerAs}>Register as:</Text>
             <View style={styles.buttonContainer}>
                 <CustomButton
                     title="I am a lawyer"
-                    onPress={() => navigation.navigate("Registration")}
+                    onPress={() => navigation.navigate("Law Search")}
                 />
                 <CustomButton
                     title="I am a counselor"
-                    onPress={() => navigation.navigate("Registration")}
+                    onPress={() => navigation.navigate("Councellor Home")}
                 />
                 <CustomButton
                     title="I am representing an NGO"
-                    onPress={() => navigation.navigate("Registration")}
+                    onPress={() => navigation.navigate("NGO Home")}
                 />
                 <CustomButton
                     title="I am an undertrial prisoner"
-                    onPress={() => navigation.navigate("Registration")}
+                    onPress={() => navigation.navigate("SearchPage")}
                 />
-                <CustomButton
+                {/* <CustomButton
                     title="I am an individual"
                     onPress={() => navigation.navigate("Registration")}
-                />
+                /> */}
             </View>
         </View>
     );
